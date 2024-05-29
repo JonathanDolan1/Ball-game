@@ -36,3 +36,7 @@ function onBall4Click() {
         elBall.style.width = elBall.innerText + 'px'
     })
 }
+
+function onBall5Click(){
+    document.querySelector('body').style.backgroundColor = getRandomColor()
+}
