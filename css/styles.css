@@ -18,3 +18,7 @@ div {
     margin-inline:auto;
     transition: 1s;
 }
+
+.ball2{
+    background-color: aquamarine;
+}
