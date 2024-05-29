@@ -19,13 +19,13 @@ div {
     transition: 1s;
 }
 
-.ball1 {
+/* .ball1 {
     background-color: yellow;
 }
 
 .ball2 {
     background-color: aquamarine;
-}
+} */
 
 .ball3 {
     background-color: red;
@@ -37,4 +37,8 @@ div {
 
 .ball5 {
     background-color: blue;
+}
+
+.ball6 {
+    background-color: pink;
 }

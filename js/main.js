@@ -40,3 +40,17 @@ function onBall4Click() {
 function onBall5Click(){
     document.querySelector('body').style.backgroundColor = getRandomColor()
 }
+
+function onBall6Click(){
+    document.querySelector('body').style.backgroundColor = 'black'
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+    elBall1.style.backgroundColor = 'yellow'
+    elBall2.style.backgroundColor = 'aquamarine'
+    const elBalls = [elBall1,elBall2]
+    elBalls.forEach(elBall=>{
+        elBall.innerText = 100
+        elBall.style.height = elBall.innerText + 'px'
+        elBall.style.width = elBall.innerText + 'px'
+    })
+}
