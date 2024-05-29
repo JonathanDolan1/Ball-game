@@ -1,8 +1,8 @@
 'use strict'
 
 var gTimeoutId = null
-var gIntervalId = null
 var gTimeoutId2 = null
+var gIntervalId = null
 
 var gGameHistory = []
 var gCurrGameStateIdx = 0
@@ -15,13 +15,15 @@ var gGame = {
     backgroundColor: 'black',
 }
 
-function onBallClick(elBall, maxDiameter) {
+function onBallClick(elBall, maxDiameter, ballNum) {
     storeMoveInHistory()
     elBall.innerText = +elBall.innerText + getRandomInt(20, 61)
     if (+elBall.innerText > maxDiameter) elBall.innerText = 100
     elBall.style.height = elBall.innerText + 'px'
     elBall.style.width = elBall.innerText + 'px'
     elBall.style.backgroundColor = getRandomColor()
+    gGame[`ball${ballNum}Color`] = elBall.style.backgroundColor
+    gGame[`ball${ballNum}Size`] = +elBall.innerText
 }
 
 function onBall3Click() {
@@ -40,6 +42,10 @@ function onBall3Click() {
     elBall2.style.height = size1 + 'px'
     elBall2.style.width = size1 + 'px'
     elBall2.style.backgroundColor = color1
+    gGame[`ball1Color`] = elBall1.style.backgroundColor
+    gGame[`ball1Size`] = +elBall1.innerText
+    gGame[`ball2Color`] = elBall2.style.backgroundColor
+    gGame[`ball2Size`] = +elBall2.innerText
 }
 
 function onBall4Click() {
@@ -53,11 +59,15 @@ function onBall4Click() {
         elBall.style.height = elBall.innerText + 'px'
         elBall.style.width = elBall.innerText + 'px'
     })
+    gGame[`ball1Size`] = +elBall1.innerText
+    gGame[`ball2Size`] = +elBall2.innerText
 }
 
 function onBall5Click() {
     storeMoveInHistory()
-    document.querySelector('body').style.backgroundColor = getRandomColor()
+    const elBody = document.querySelector('body')
+    elBody.style.backgroundColor = getRandomColor()
+    gGame.backgroundColor = elBody.style.backgroundColor
 }
 
 function onBall6Click() {
@@ -78,55 +88,69 @@ function onBall6Click() {
 
 function onBall6Hover() {
     gTimeoutId = setTimeout(runFirst4BallsClickInterval, 2000)
-    gTimeoutId2 = setTimeout(clearGIntervalId,22500)
+    gTimeoutId2 = setTimeout(clearGIntervalId, 22500)
 }
 
 function onBall6Leave() {
-    storeMoveInHistory()
     clearTimeout(gTimeoutId)
     clearTimeout(gTimeoutId2)
     clearGIntervalId()
 }
 
-function clearGIntervalId(){
+function clearGIntervalId() {
     clearInterval(gIntervalId)
 }
 
 function runFirst4BallsClickInterval() {
-    storeMoveInHistory()
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     gIntervalId = setInterval(() => {
+        storeMoveInHistory()
         onBallClick(elBall1, 100)
         onBallClick(elBall2, 100)
         onBall3Click()
         onBall4Click()
+        gGame[`ball1Color`] = elBall1.style.backgroundColor
+        gGame[`ball1Size`] = +elBall1.innerText
+        gGame[`ball2Color`] = elBall2.style.backgroundColor
+        gGame[`ball2Size`] = +elBall2.innerText
     }, 2000)
 }
 
-function storeMoveInHistory(){
+function storeMoveInHistory() {
     gGameHistory.push(copyGameState())
 }
 
-function copyGameState(){
+function copyGameState() {
     gCurrGameStateIdx++
     const gameCopy = {}
-    for (var key in gGame){
+    for (var key in gGame) {
         gameCopy[key] = gGame[key]
     }
     return gameCopy
 }
 
-function loadGameFromHistory(idx){
-    for (var key in gGame){
+function loadGameFromHistory(idx) {
+    for (var key in gGame) {
         gGame[key] = gGameHistory[idx][key]
     }
 }
 
-function onUndo(){
+function onUndo() {
     loadGameFromHistory(gCurrGameStateIdx--)
 }
 
-function onRedo(){
+function onRedo() {
     loadGameFromHistory(gCurrGameStateIdx++)
+}
+
+function renderGame() {
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+    elBall1.style.backgroundColor = gGame[`ball1Color`]
+    elBall1.innerText = gGame[`ball1Size`] 
+    elBall2.style.backgroundColor = gGame[`ball2Color`]
+    elBall2.innerText = gGame[`ball2Size`] 
+    const elBody = document.querySelector('body')
+    elBody.style.backgroundColor = gGame.backgroundColor
 }
