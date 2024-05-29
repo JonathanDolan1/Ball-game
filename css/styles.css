@@ -7,9 +7,13 @@ h1 {
 }
 
 div {
+    display: grid;
+    place-items: center;
     height: 100px;
     width: 100px;
     background-color: yellow;
     border-radius: 50%;
+    font-size: 22px;
+    font-weight: bold;
     margin-inline:auto;
 }
