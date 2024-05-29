@@ -118,11 +118,11 @@ function runFirst4BallsClickInterval() {
 }
 
 function storeMoveInHistory() {
+    gCurrGameStateIdx++
     gGameHistory.push(copyGameState())
 }
 
 function copyGameState() {
-    gCurrGameStateIdx++
     const gameCopy = {}
     for (var key in gGame) {
         gameCopy[key] = gGame[key]
@@ -137,11 +137,13 @@ function loadGameFromHistory(idx) {
 }
 
 function onUndo() {
-    loadGameFromHistory(gCurrGameStateIdx--)
+    loadGameFromHistory(--gCurrGameStateIdx)
+    renderGame()
 }
 
 function onRedo() {
-    loadGameFromHistory(gCurrGameStateIdx++)
+    loadGameFromHistory(++gCurrGameStateIdx)
+    renderGame()
 }
 
 function renderGame() {
@@ -151,6 +153,10 @@ function renderGame() {
     elBall1.innerText = gGame[`ball1Size`] 
     elBall2.style.backgroundColor = gGame[`ball2Color`]
     elBall2.innerText = gGame[`ball2Size`] 
+    elBall1.style.height = elBall1.innerText + 'px'
+    elBall1.style.width = elBall1.innerText + 'px'
+    elBall2.style.height = elBall2.innerText + 'px'
+    elBall2.style.width = elBall2.innerText + 'px'
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = gGame.backgroundColor
 }
