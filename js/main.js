@@ -1,5 +1,7 @@
 'use strict'
 
+var gTimeoutId = null
+
 function onBallClick(elBall, maxDiameter) {
     elBall.innerText = +elBall.innerText + getRandomInt(20, 61)
     if (elBall.innerText > maxDiameter) elBall.innerText = 100
@@ -53,4 +55,16 @@ function onBall6Click(){
         elBall.style.height = elBall.innerText + 'px'
         elBall.style.width = elBall.innerText + 'px'
     })
+}
+
+function onBall6Hover(){
+    gTimeoutId = setTimeout(sayHi,2000)
+}
+
+function onBall6Leave(){
+    clearTimeout(gTimeoutId)
+}
+
+function sayHi(){
+    console.log('hi');
 }
