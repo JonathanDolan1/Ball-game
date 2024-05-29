@@ -39,32 +39,39 @@ function onBall4Click() {
     })
 }
 
-function onBall5Click(){
+function onBall5Click() {
     document.querySelector('body').style.backgroundColor = getRandomColor()
 }
 
-function onBall6Click(){
+function onBall6Click() {
     document.querySelector('body').style.backgroundColor = 'black'
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     elBall1.style.backgroundColor = 'yellow'
     elBall2.style.backgroundColor = 'aquamarine'
-    const elBalls = [elBall1,elBall2]
-    elBalls.forEach(elBall=>{
+    const elBalls = [elBall1, elBall2]
+    elBalls.forEach(elBall => {
         elBall.innerText = 100
         elBall.style.height = elBall.innerText + 'px'
         elBall.style.width = elBall.innerText + 'px'
     })
 }
 
-function onBall6Hover(){
-    gTimeoutId = setTimeout(sayHi,2000)
+function onBall6Hover() {
+    gTimeoutId = setTimeout(runFirst4BallsClickInterval, 2000)
 }
 
-function onBall6Leave(){
+function onBall6Leave() {
     clearTimeout(gTimeoutId)
 }
 
-function sayHi(){
-    console.log('hi');
+function runFirst4BallsClickInterval() {
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+    setInterval(() => {
+        onBallClick(elBall1, 100)
+        onBallClick(elBall2, 100)
+        onBall3Click()
+        onBall4Click()
+    }, 2000)
 }
