@@ -1,6 +1,7 @@
 'use strict'
 
 var gTimeoutId = null
+var gIntervalId = null
 
 function onBallClick(elBall, maxDiameter) {
     elBall.innerText = +elBall.innerText + getRandomInt(20, 61)
@@ -55,6 +56,7 @@ function onBall6Click() {
         elBall.style.height = elBall.innerText + 'px'
         elBall.style.width = elBall.innerText + 'px'
     })
+    clearInterval(gIntervalId)
 }
 
 function onBall6Hover() {
@@ -68,7 +70,7 @@ function onBall6Leave() {
 function runFirst4BallsClickInterval() {
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
-    setInterval(() => {
+    gIntervalId = setInterval(() => {
         onBallClick(elBall1, 100)
         onBallClick(elBall2, 100)
         onBall3Click()
