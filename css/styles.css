@@ -11,14 +11,21 @@ div {
     place-items: center;
     height: 100px;
     width: 100px;
-    background-color: yellow;
     border-radius: 50%;
     font-size: 22px;
     font-weight: bold;
-    margin-inline:auto;
+    margin-inline: auto;
     transition: 1s;
 }
 
-.ball2{
+.ball1 {
+    background-color: yellow;
+}
+
+.ball2 {
     background-color: aquamarine;
+}
+
+.ball3 {
+    background-color: red;
 }
