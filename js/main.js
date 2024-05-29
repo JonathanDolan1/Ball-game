@@ -2,6 +2,7 @@
 
 var gTimeoutId = null
 var gIntervalId = null
+var gTimeoutId2 = null
 
 function onBallClick(elBall, maxDiameter) {
     elBall.innerText = +elBall.innerText + getRandomInt(20, 61)
@@ -61,10 +62,17 @@ function onBall6Click() {
 
 function onBall6Hover() {
     gTimeoutId = setTimeout(runFirst4BallsClickInterval, 2000)
+    gTimeoutId2 = setTimeout(clearGIntervalId,22500)
 }
 
 function onBall6Leave() {
     clearTimeout(gTimeoutId)
+    clearTimeout(gTimeoutId2)
+    clearGIntervalId()
+}
+
+function clearGIntervalId(){
+    clearInterval(gIntervalId)
 }
 
 function runFirst4BallsClickInterval() {
