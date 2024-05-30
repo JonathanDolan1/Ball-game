@@ -84,6 +84,13 @@ function onBall6Click() {
         elBall.style.width = elBall.innerText + 'px'
     })
     clearInterval(gIntervalId)
+    gGame = {
+        ball1Color: 'yellow',
+        ball2Color: 'aquamarine',
+        ball1Size: 100,
+        ball2Size: 100,
+        backgroundColor: 'black',
+    }
 }
 
 function onBall6Hover() {
@@ -169,6 +176,7 @@ function onRedo(elBtn) {
 function renderGame() {
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
+    const elBody = document.querySelector('body')
     elBall1.style.backgroundColor = gGame[`ball1Color`]
     elBall1.innerText = gGame[`ball1Size`]
     elBall2.style.backgroundColor = gGame[`ball2Color`]
@@ -177,7 +185,6 @@ function renderGame() {
     elBall1.style.width = elBall1.innerText + 'px'
     elBall2.style.height = elBall2.innerText + 'px'
     elBall2.style.width = elBall2.innerText + 'px'
-    const elBody = document.querySelector('body')
     elBody.style.backgroundColor = gGame.backgroundColor
 }
 
