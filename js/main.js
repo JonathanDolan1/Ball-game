@@ -120,6 +120,10 @@ function runFirst4BallsClickInterval() {
 function storeMoveInHistory() {
     gGameHistory.splice(gCurrGameStateIdx, gGameHistory.length - gCurrGameStateIdx, copyGameState())
     gCurrGameStateIdx++
+    const elBtnUndo = document.querySelector('.undo')
+    elBtnUndo.disabled=false
+    const elBtnRedo = document.querySelector('.redo')
+    elBtnRedo.disabled=true
 }
 
 function copyGameState() {
@@ -147,15 +151,19 @@ function onUndo(elBtn) {
     if (gCurrGameStateIdx===0){
         disableButton(elBtn)
     }
+    const elBtnRedo = document.querySelector('.redo')
+    elBtnRedo.disabled=false
 }
 
 function onRedo(elBtn) {
     gCurrGameStateIdx++
     loadGameFromHistory(gCurrGameStateIdx)
     renderGame()
-    if (gGameHistory.length===gCurrGameStateIdx){
+    if (gGameHistory.length-1===gCurrGameStateIdx){
         disableButton(elBtn)
     }
+    const elBtnUndo = document.querySelector('.undo')
+    elBtnUndo.disabled=false
 }
 
 function renderGame() {
@@ -173,6 +181,6 @@ function renderGame() {
     elBody.style.backgroundColor = gGame.backgroundColor
 }
 
-function disableButton(){
-
+function disableButton(elBtn){
+    elBtn.disabled = true
 }

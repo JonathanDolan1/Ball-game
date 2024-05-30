@@ -8,8 +8,8 @@
 </head>
 <body>
     <h1>The Ball Game</h1>
-    <button onclick="onUndo()">Undo</button>
-    <button onclick="onRedo()">Redo</button>
+    <button class="undo" onclick="onUndo(this)">Undo</button>
+    <button class="redo" onclick="onRedo(this)" disabled>Redo</button>
     <div class="ball1" onclick="onBallClick(this,400,1)" style="background-color:yellow">100</div>
     <div class="ball2" onclick="onBallClick(this,300,2)" style="background-color:aquamarine">100</div>
     <div class="ball3" onclick="onBall3Click()">100</div>
