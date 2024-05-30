@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ball Game</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <h1>The Ball Game</h1>
-    <button class="undo" onclick="onUndo(this)">Undo</button>
-    <button class="redo" onclick="onRedo(this)" disabled>Redo</button>
-    <div class="ball1" onclick="onBallClick(this,400,1)" style="background-color:yellow">100</div>
-    <div class="ball2" onclick="onBallClick(this,300,2)" style="background-color:aquamarine">100</div>
-    <div class="ball3" onclick="onBall3Click()">100</div>
-    <div class="ball4" onclick="onBall4Click()">100</div>
-    <div class="ball5" onclick="onBall5Click()">100</div>
-    <div class="ball6" onclick="onBall6Click()" onmouseover="onBall6Hover()" onmouseleave="onBall6Leave()">100</div>
+    <div class="top-display">
+        <button class="undo" onclick="onUndo(this)">Undo</button>
+        <button class="redo" onclick="onRedo(this)" disabled>Redo</button>
+        <div class="counter">Moves Count: <span>0</span></div>
+        <div class="curr-move">Current Move Number:<span>0</span></div>
+    </div>
+    <div class="ball ball1" onclick="onBallClick(this,400,1)" style="background-color:yellow">100</div>
+    <div class="ball ball2" onclick="onBallClick(this,300,2)" style="background-color:aquamarine">100</div>
+    <div class="ball ball3" onclick="onBall3Click()">100</div>
+    <div class="ball ball4" onclick="onBall4Click()">100</div>
+    <div class="ball ball5" onclick="onBall5Click()">100</div>
+    <div class="ball ball6" onclick="onBall6Click()" onmouseover="onBall6Hover()" onmouseleave="onBall6Leave()">100</div>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

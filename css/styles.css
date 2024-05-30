@@ -1,12 +1,25 @@
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: black;
 }
 
-h1 {
+h1 , .counter, .curr-move{
     color: white;
 }
 
-div {
+.top-display{
+    display: flex;
+    margin-block-end: 20px;
+}
+
+.top-display *{
+    margin-inline: 10px;
+}
+
+.ball {
     display: grid;
     place-items: center;
     height: 100px;
