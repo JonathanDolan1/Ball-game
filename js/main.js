@@ -6,6 +6,7 @@ var gIntervalId = null
 
 var gGameHistory = []
 var gCurrGameStateIdx = 0
+var gIsUndone = false
 
 var gGame = {
     ball1Color: 'yellow',
@@ -134,6 +135,8 @@ function storeMoveInHistory() {
     elBtnUndo.disabled = false
     const elBtnRedo = document.querySelector('.redo')
     elBtnRedo.disabled = true
+    gIsUndone = false
+    renderCounters()
 }
 
 function copyGameState() {
@@ -154,6 +157,7 @@ function onUndo(elBtn) {
     if (gGameHistory.length === gCurrGameStateIdx) {
         storeMoveInHistory()
         gCurrGameStateIdx--
+        gIsUndone = true
     }
     gCurrGameStateIdx--
     loadGameFromHistory(gCurrGameStateIdx)
@@ -189,8 +193,16 @@ function renderGame() {
     elBall2.style.height = elBall2.innerText + 'px'
     elBall2.style.width = elBall2.innerText + 'px'
     elBody.style.backgroundColor = gGame.backgroundColor
+    renderCounters()
 }
 
 function disableButton(elBtn) {
     elBtn.disabled = true
+}
+
+function renderCounters(){
+    const elMovesCount = document.querySelector('.counter span')
+    const elCurrMove = document.querySelector('.curr-move span')
+    elMovesCount.innerText = gGameHistory.length - ((gIsUndone) ? 1 : 0)
+    elCurrMove.innerText = gCurrGameStateIdx 
 }
