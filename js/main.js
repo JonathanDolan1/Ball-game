@@ -118,8 +118,8 @@ function runFirst4BallsClickInterval() {
 }
 
 function storeMoveInHistory() {
+    gGameHistory.splice(gCurrGameStateIdx, gGameHistory.length - gCurrGameStateIdx, copyGameState())
     gCurrGameStateIdx++
-    gGameHistory.push(copyGameState())
 }
 
 function copyGameState() {
@@ -136,27 +136,43 @@ function loadGameFromHistory(idx) {
     }
 }
 
-function onUndo() {
-    loadGameFromHistory(--gCurrGameStateIdx)
+function onUndo(elBtn) {
+    if (gGameHistory.length===gCurrGameStateIdx){
+        storeMoveInHistory()
+        gCurrGameStateIdx--
+    }
+    gCurrGameStateIdx--
+    loadGameFromHistory(gCurrGameStateIdx)
     renderGame()
+    if (gCurrGameStateIdx===0){
+        disableButton(elBtn)
+    }
 }
 
-function onRedo() {
-    loadGameFromHistory(++gCurrGameStateIdx)
+function onRedo(elBtn) {
+    gCurrGameStateIdx++
+    loadGameFromHistory(gCurrGameStateIdx)
     renderGame()
+    if (gGameHistory.length===gCurrGameStateIdx){
+        disableButton(elBtn)
+    }
 }
 
 function renderGame() {
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     elBall1.style.backgroundColor = gGame[`ball1Color`]
-    elBall1.innerText = gGame[`ball1Size`] 
+    elBall1.innerText = gGame[`ball1Size`]
     elBall2.style.backgroundColor = gGame[`ball2Color`]
-    elBall2.innerText = gGame[`ball2Size`] 
+    elBall2.innerText = gGame[`ball2Size`]
     elBall1.style.height = elBall1.innerText + 'px'
     elBall1.style.width = elBall1.innerText + 'px'
     elBall2.style.height = elBall2.innerText + 'px'
     elBall2.style.width = elBall2.innerText + 'px'
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = gGame.backgroundColor
+}
+
+function disableButton(){
+
 }
