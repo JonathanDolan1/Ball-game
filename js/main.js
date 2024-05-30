@@ -115,9 +115,10 @@ function runFirst4BallsClickInterval() {
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     gIntervalId = setInterval(() => {
+        // debugger
         storeMoveInHistory()
-        onBallClick(elBall1, 100, false)
-        onBallClick(elBall2, 100, false)
+        onBallClick(elBall1, 100, 1, false)
+        onBallClick(elBall2, 100, 2, false)
         onBall3Click(false)
         onBall4Click(false)
         gGame[`ball1Color`] = elBall1.style.backgroundColor
