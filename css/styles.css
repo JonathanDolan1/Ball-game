@@ -6,7 +6,7 @@ body {
     background-color: black;
 }
 
-h1 , .counter, .curr-move{
+h1 , .counter, .curr-move ,.timer{
     color: white;
 }
 

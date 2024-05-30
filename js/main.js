@@ -7,6 +7,8 @@ var gIntervalId = null
 var gGameHistory = []
 var gCurrGameStateIdx = 0
 var gIsUndone = false
+var gStartTime
+var gIsGameOn = null
 
 var gGame = {
     ball1Color: 'yellow',
@@ -129,6 +131,10 @@ function runFirst4BallsClickInterval() {
 }
 
 function storeMoveInHistory() {
+    if (!gIsGameOn){
+        startTimer()
+        gIsGameOn = true
+    }
     gGameHistory.splice(gCurrGameStateIdx, gGameHistory.length - gCurrGameStateIdx, copyGameState())
     gCurrGameStateIdx++
     const elBtnUndo = document.querySelector('.undo')
@@ -205,4 +211,25 @@ function renderCounters(){
     const elCurrMove = document.querySelector('.curr-move span')
     elMovesCount.innerText = gGameHistory.length - ((gIsUndone) ? 1 : 0)
     elCurrMove.innerText = gCurrGameStateIdx 
+}
+
+function getTimerStrFromTime(time) {
+    var seconds = parseInt(time / 1000)
+    var minutes = parseInt(seconds / 60)
+    seconds %= 60
+    if (seconds < 10) seconds = '0' + seconds
+    if (minutes < 10) minutes = '0' + minutes
+    const timer = minutes + ':' + seconds
+    return timer
+}
+
+function startTimer() {
+    gStartTime = Date.now()
+    setInterval(renderTimer, 1000)
+}
+
+function renderTimer() {
+    const timer = getTimerStrFromTime((Date.now() - gStartTime))
+    const elTimerSpan = document.querySelector('.timer span')
+    elTimerSpan.innerText = timer
 }
