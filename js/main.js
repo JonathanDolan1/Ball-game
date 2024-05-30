@@ -15,8 +15,11 @@ var gGame = {
     backgroundColor: 'black',
 }
 
-function onBallClick(elBall, maxDiameter, ballNum) {
-    storeMoveInHistory()
+function onBallClick(elBall, maxDiameter, ballNum, isSelfActivated = true) {
+    if (isSelfActivated) {
+        console.log('hi');
+        storeMoveInHistory()
+    }
     elBall.innerText = +elBall.innerText + getRandomInt(20, 61)
     if (+elBall.innerText > maxDiameter) elBall.innerText = 100
     elBall.style.height = elBall.innerText + 'px'
@@ -26,8 +29,8 @@ function onBallClick(elBall, maxDiameter, ballNum) {
     gGame[`ball${ballNum}Size`] = +elBall.innerText
 }
 
-function onBall3Click() {
-    storeMoveInHistory()
+function onBall3Click(isSelfActivated = true) {
+    if (isSelfActivated) storeMoveInHistory()
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     const color1 = elBall1.style.backgroundColor
@@ -48,8 +51,8 @@ function onBall3Click() {
     gGame[`ball2Size`] = +elBall2.innerText
 }
 
-function onBall4Click() {
-    storeMoveInHistory()
+function onBall4Click(isSelfActivated = true) {
+    if (isSelfActivated) storeMoveInHistory()
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     const elBalls = [elBall1, elBall2]
@@ -113,10 +116,10 @@ function runFirst4BallsClickInterval() {
     const elBall2 = document.querySelector('.ball2')
     gIntervalId = setInterval(() => {
         storeMoveInHistory()
-        onBallClick(elBall1, 100)
-        onBallClick(elBall2, 100)
-        onBall3Click()
-        onBall4Click()
+        onBallClick(elBall1, 100, false)
+        onBallClick(elBall2, 100, false)
+        onBall3Click(false)
+        onBall4Click(false)
         gGame[`ball1Color`] = elBall1.style.backgroundColor
         gGame[`ball1Size`] = +elBall1.innerText
         gGame[`ball2Color`] = elBall2.style.backgroundColor
@@ -128,9 +131,9 @@ function storeMoveInHistory() {
     gGameHistory.splice(gCurrGameStateIdx, gGameHistory.length - gCurrGameStateIdx, copyGameState())
     gCurrGameStateIdx++
     const elBtnUndo = document.querySelector('.undo')
-    elBtnUndo.disabled=false
+    elBtnUndo.disabled = false
     const elBtnRedo = document.querySelector('.redo')
-    elBtnRedo.disabled=true
+    elBtnRedo.disabled = true
 }
 
 function copyGameState() {
@@ -148,29 +151,29 @@ function loadGameFromHistory(idx) {
 }
 
 function onUndo(elBtn) {
-    if (gGameHistory.length===gCurrGameStateIdx){
+    if (gGameHistory.length === gCurrGameStateIdx) {
         storeMoveInHistory()
         gCurrGameStateIdx--
     }
     gCurrGameStateIdx--
     loadGameFromHistory(gCurrGameStateIdx)
     renderGame()
-    if (gCurrGameStateIdx===0){
+    if (gCurrGameStateIdx === 0) {
         disableButton(elBtn)
     }
     const elBtnRedo = document.querySelector('.redo')
-    elBtnRedo.disabled=false
+    elBtnRedo.disabled = false
 }
 
 function onRedo(elBtn) {
     gCurrGameStateIdx++
     loadGameFromHistory(gCurrGameStateIdx)
     renderGame()
-    if (gGameHistory.length-1===gCurrGameStateIdx){
+    if (gGameHistory.length - 1 === gCurrGameStateIdx) {
         disableButton(elBtn)
     }
     const elBtnUndo = document.querySelector('.undo')
-    elBtnUndo.disabled=false
+    elBtnUndo.disabled = false
 }
 
 function renderGame() {
@@ -188,6 +191,6 @@ function renderGame() {
     elBody.style.backgroundColor = gGame.backgroundColor
 }
 
-function disableButton(elBtn){
+function disableButton(elBtn) {
     elBtn.disabled = true
 }
